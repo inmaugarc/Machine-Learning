@@ -11,16 +11,20 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 import matplotlib.pyplot as pl
 import numpy as np
-import sklearn.learning_curve as curves
+from sklearn.model_selection import learning_curve
+#import sklearn.model_selection as curves
 from sklearn.tree import DecisionTreeRegressor
+from sklearn import cross_validation
 from sklearn.cross_validation import ShuffleSplit, train_test_split
+#from sklearn.model_selection import ShuffleSplit, train_test_split
 
 def ModelLearning(X, y):
     """ Calculates the performance of several models with varying sizes of training data.
         The learning and testing scores for each model are then plotted. """
     
     # Create 10 cross-validation sets for training and testing
-    cv = ShuffleSplit(X.shape[0], n_iter = 10, test_size = 0.2, random_state = 0)
+   # cv = ShuffleSplit(X.shape[0], n_iter = 10, test_size = 0.2, random_state = 0)
+    cv = cross_validation.ShuffleSplit(X.shape[0], n_iter = 10, test_size = 0.2, random_state = 0)
 
     # Generate the training set sizes increasing by 50
     train_sizes = np.rint(np.linspace(1, X.shape[0]*0.8 - 1, 9)).astype(int)
